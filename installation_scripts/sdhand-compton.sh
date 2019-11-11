@@ -9,6 +9,7 @@ sudo apt-get install python3 python3-pip python3-setuptools \
 pip3 install meson
 
 # build
+cd /tmp
 git clone https://github.com/sdhand/compton.git
 cd compton
 git submodule update --init --recursive
