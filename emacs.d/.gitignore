@@ -1,0 +1,11 @@
+.emacs.desktop*
+auto-save-list/
+*~
+straight/
+elpa/
+transient/
+eshell/
+places
+server/
+recentf
+snippets/

@@ -11,6 +11,8 @@ gaps bottom 0
 for_window [class   = "^.*"] border pixel 0
 for_window [title   = "^.*"] border pixel 0
 
+for_window [class="Nautilus"] floating enable
+
 border_radius 0
 smart_borders on
 
