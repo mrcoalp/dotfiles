@@ -259,20 +259,20 @@ format-padding          = ${constants.padding}
 interval                = 2
 label-font              = 1
 format = <label>
-label = CPU %percentage%%
+format-prefix=" "
+label = %percentage%%
 
 type                    = internal/cpu
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = " "
 format-underline = #4bffdc
 
 format = <label>
 
-label = RAM %gb_used%/%gb_total%
+label = %gb_used%/%gb_total%
 
 [module/wlan]
 type = internal/network
@@ -322,8 +322,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = 
 format-underline = #0a6cf5
 
 label = %date% %time%
@@ -332,11 +331,10 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume = 墳 %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 🔇 muted
-label-muted-foreground = #666
+label-muted = 婢 muted
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
