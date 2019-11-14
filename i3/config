@@ -195,3 +195,9 @@ exec_always --no-startup-id ~/.i3/compton.sh &
 
 # ROFI
 bindsym $mod+F11 exec --no-startup-id rofi -show run
+
+# Selection screenshot
+bindsym --release Shift+Print exec "flameshot gui"
+
+# Full screenshot
+bindsym --release Print exec "flameshot full"
