@@ -118,7 +118,6 @@ alias update='sudo apt update -y && \
 
 alias gfr='gf && grb'
 alias dev='cd ~/Development'
-alias jetbrains='/home/marco/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

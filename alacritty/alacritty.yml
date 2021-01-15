@@ -412,7 +412,7 @@ background_opacity: 0.95
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-working_directory: /home/marcopinto/Development/game-logic
+#working_directory: /home/marcopinto/Development/game-logic
 
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true
