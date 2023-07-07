@@ -1,0 +1,7 @@
+alacritty/themes/
+fish/*
+!fish/config.fish
+kitty/themes/
+lazygit/state.yml
+tmux/*
+!tmux/tmux.conf
