@@ -1,4 +1,11 @@
 return {
+    dap = {
+        DapStopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+        DapBreakpoint = { " ", "DiagnosticInfo", nil },
+        DapBreakpointCondition = { " ", "DiagnosticInfo", nil },
+        DapBreakpointRejected = { " ", "DiagnosticError", nil },
+        DapLogPoint = { ".>", "DiagnosticInfo", nil },
+    },
     diagnostics = {
         Error = " ",
         Warn = " ",

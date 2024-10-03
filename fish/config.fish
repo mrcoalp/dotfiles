@@ -2,15 +2,21 @@ if status is-interactive
 	# Commands to run in interactive sessions can go here
 end
 
+# Environment
+set -x fish_greeting
+set -x FZF_DEFAULT_COMMAND "rg --follow --files --hidden"
+set -x PYENV_ROOT "$HOME/.pyenv"
+
 # Extra components on $PATH
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$HOME/.flutter/bin"
 fish_add_path "$HOME/go/bin"
 fish_add_path "$(python3 -m site --user-base)/bin"
 
-# Environment
-set -x fish_greeting
-set -x FZF_DEFAULT_COMMAND "rg --follow --files --hidden"
+if test -d "$PYENV_ROOT/bin"
+	fish_add_path "$PYENV_ROOT/bin"
+	pyenv init - | source
+end
 
 # Aliases
 alias ls='lsd --group-dirs first'

@@ -3,10 +3,12 @@ return {
         "rcarriga/nvim-dap-ui",
         dependencies = {
             "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
             "theHamsta/nvim-dap-virtual-text",
             "nvim-telescope/telescope.nvim",
             "nvim-telescope/telescope-dap.nvim",
         },
+        event = "VeryLazy",
         keys = {
             {
                 "<leader>sl",
@@ -105,6 +107,20 @@ return {
             },
         },
         config = function()
+            -- Setup icons
+            local icons = require("user.icons")
+
+            for name, sign in pairs(icons.dap) do
+                local definition = {
+                    text = sign[1],
+                    texthl = sign[2],
+                    linehl = sign[3],
+                    numhl = sign[3],
+                }
+
+                vim.fn.sign_define(name, definition)
+            end
+
             -- Setup virtual text
             require("nvim-dap-virtual-text").setup({})
 
@@ -113,13 +129,6 @@ return {
 
             -- Define adapters and configurations
             local dap = require("dap")
-
-            -- Define dap signs
-            vim.fn.sign_define("DapBreakpoint", { text = "🔴" })
-            vim.fn.sign_define("DapBreakpointCondition", { text = "🟡" })
-            vim.fn.sign_define("DapLogPoint", { text = "🟣" })
-            vim.fn.sign_define("DapStopped", { text = "🟢" })
-            vim.fn.sign_define("DapBreakpointRejected", { text = "⭕" })
 
             dap.adapters.cppdbg = {
                 id = "cppdbg",
@@ -146,16 +155,19 @@ return {
 
             local dapui = require("dapui")
 
-            dapui.setup({})
+            dapui.setup()
 
-            dap.listeners.after.event_initialized["dapui_config"] = function()
-                dapui.open({})
+            dap.listeners.before.attach.dapui_config = function()
+                dapui.open()
             end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close({})
+            dap.listeners.before.launch.dapui_config = function()
+                dapui.open()
             end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close({})
+            dap.listeners.before.event_terminated.dapui_config = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited.dapui_config = function()
+                dapui.close()
             end
         end,
     },

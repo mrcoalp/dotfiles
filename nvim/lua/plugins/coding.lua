@@ -8,6 +8,7 @@ return {
             "hrsh7th/cmp-buffer",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
+            "folke/lazydev.nvim",
         },
         config = function()
             local cmp = require("cmp")
@@ -52,6 +53,7 @@ return {
                     { name = "path" },
                     { name = "buffer" },
                     { name = "neorg" },
+                    { name = "lazydev", group_index = 0 },
                 },
                 formatting = {
                     format = function(_, item)

@@ -84,6 +84,9 @@ bindsym $mod+Shift+q kill
 # start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 
+# capture screen selection
+bindsym $mod+p exec --no-startup-id flameshot gui
+
 # select screen layout
 bindsym $mod+x exec --no-startup-id bash "$folder/rofi/layouts.sh"
 

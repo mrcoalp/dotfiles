@@ -40,13 +40,26 @@ end
 
 return {
     {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+
+    { "Bilal2453/luvit-meta", lazy = true },
+
+    {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            "folke/neodev.nvim",
         },
         opts = {
             diagnostics = {
@@ -60,7 +73,7 @@ return {
                 pyright = {},
                 yamlls = {},
                 eslint = {},
-                tsserver = {},
+                ts_ls = {},
                 jsonls = {},
                 cmake = {},
                 clangd = {},
@@ -84,9 +97,6 @@ return {
             end
             vim.diagnostic.config(opts.diagnostics)
 
-            -- Setup neovim lua configuration
-            require("neodev").setup()
-            --
             -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)

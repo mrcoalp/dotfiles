@@ -188,7 +188,7 @@ fi
 
 # install go
 if ask "Install go?"; then
-	go_version="1.22.2"
+	go_version="1.23.2"
 	log_info "Installing go"
 	wget "https://go.dev/dl/go${go_version}.linux-amd64.tar.gz" -O /tmp/go.tar.gz
 	sudo rm -rf "$HOME/go" || log_critical "Failed to remove go directory"
@@ -198,7 +198,7 @@ fi
 
 # install lsd
 if ask "Install lsd?"; then
-	lsd_version="1.1.2"
+	lsd_version="1.1.5"
 	log_info "Installing LSDeluxe"
 	wget "https://github.com/lsd-rs/lsd/releases/download/v${lsd_version}/lsd-musl_${lsd_version}_amd64.deb" -O /tmp/lsd.deb
 	sudo dpkg -i /tmp/lsd.deb || log_critical "Failed to install lsd"
@@ -207,7 +207,7 @@ fi
 
 # install fd-find
 if ask "Install fd?"; then
-	fd_version="9.0.0"
+	fd_version="10.2.0"
 	log_info "Installing fd-find"
 	wget "https://github.com/sharkdp/fd/releases/download/v${fd_version}/fd-musl_${fd_version}_amd64.deb" -O /tmp/fd.deb
 	sudo dpkg -i /tmp/fd.deb || log_critical "Failed to install fd"
@@ -216,7 +216,7 @@ fi
 
 # install ripgrep
 if ask "Install rg?"; then
-	rg_version="14.1.0"
+	rg_version="14.1.1"
 	log_info "Installing ripgrep"
 	wget "https://github.com/BurntSushi/ripgrep/releases/download/${rg_version}/ripgrep_${rg_version}-1_amd64.deb" -O /tmp/ripgrep.deb
 	sudo dpkg -i /tmp/ripgrep.deb || log_critical "Failed to install rg"
@@ -234,16 +234,16 @@ fi
 
 # install fzf
 if ask "Install fzf?"; then
-	fzf_version="0.50.0"
+	fzf_version="0.55.0"
 	log_info "Installing fzf"
-	wget "https://github.com/junegunn/fzf/releases/download/${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
+	wget "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
 	sudo tar -xvf /tmp/fzf.tar.gz -C /usr/local/bin || log_critical "Failed to install fzf"
 	rm /tmp/fzf.tar.gz
 fi
 
 # install delta
 if ask "Install delta?"; then
-	delta_version="0.17.0"
+	delta_version="0.18.2"
 	log_info "Installing delta"
 	wget "https://github.com/dandavison/delta/releases/download/${delta_version}/git-delta_${delta_version}_amd64.deb" -O /tmp/git-delta.deb
 	sudo dpkg -i /tmp/git-delta.deb || log_critical "Failed to install delta"
@@ -252,7 +252,7 @@ fi
 
 # install cmake
 if ask "Install cmake?"; then
-	cmake_version="3.29.2"
+	cmake_version="3.30.4"
 	log_info "Installing cmake"
 	wget "https://github.com/Kitware/CMake/releases/download/v${cmake_version}/cmake-${cmake_version}-linux-x86_64.sh" -O /tmp/cmake.sh
 	sudo sh /tmp/cmake.sh --prefix=/usr/local/ --exclude-subdir --skip-licenses
