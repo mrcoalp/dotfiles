@@ -1,7 +1,7 @@
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        version = "v2.x",
+        version = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
@@ -19,7 +19,9 @@ return {
         end,
         opts = {
             filesystem = {
-                follow_current_file = true,
+                follow_current_file = {
+                    enabled = true,
+                },
                 filtered_items = {
                     hide_dotfiles = false,
                     hide_gitignored = false,
@@ -31,6 +33,44 @@ return {
                     ["<space>"] = "none",
                 },
             },
+        },
+    },
+
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        opts = {
+            direction = "float",
+            float_opts = {
+                border = "curved",
+            },
+        },
+        config = function(_, opts)
+            require("toggleterm").setup(opts)
+
+            function _G.set_terminal_keymaps()
+                local opts_ = { buffer = 0 }
+                vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts_)
+                vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts_)
+                vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts_)
+                vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts_)
+                vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts_)
+            end
+
+            vim.cmd("autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()")
+        end,
+        cmd = {
+            "ToggleTerm",
+            "ToggleTermToggleAll",
+            "TermExec",
+            "TermSelect",
+            "ToggleTermSetName",
+            "ToggleTermSendVisualLines",
+            "ToggleTermSendVisualSelection",
+            "ToggleTermSendCurrentLine",
+        },
+        keys = {
+            { "<leader>t", "<cmd>ToggleTerm<cr>", desc = "Toggle [T]erminal" },
         },
     },
 
@@ -70,14 +110,24 @@ return {
     },
 
     {
-        "NeogitOrg/neogit",
-        lazy = false,
-        dependencies = {
-            "nvim-lua/plenary.nvim", -- required
-            "sindrets/diffview.nvim", -- optional - Diff integration
-            "nvim-telescope/telescope.nvim", -- optional
+        "kdheepak/lazygit.nvim",
+        lazy = true,
+        cmd = {
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
         },
-        config = true,
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        -- setting the keybinding for LazyGit with 'keys' is recommended in
+        -- order to load the plugin when the command is run for the first time
+        keys = {
+            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+        },
     },
 
     {
@@ -250,13 +300,13 @@ return {
         keys = {
             {
                 "<leader>xx",
-                "<cmd>Trouble diagnostics toggle<cr>",
-                desc = "Diagnostics (Trouble)",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Buffer Diagnostics (Trouble)",
             },
             {
                 "<leader>xX",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Buffer Diagnostics (Trouble)",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Diagnostics (Trouble)",
             },
             {
                 "<leader>cs",

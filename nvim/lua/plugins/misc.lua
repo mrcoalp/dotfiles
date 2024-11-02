@@ -45,4 +45,24 @@ return {
         "tpope/vim-repeat",
         event = "VeryLazy",
     },
+
+    {
+        "nvim-neorg/neorg",
+        lazy = false,
+        version = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            load = {
+                ["core.defaults"] = {},
+                ["core.concealer"] = {},
+                ["core.dirman"] = {
+                    config = {
+                        workspaces = {
+                            notes = "/media/data-storage/notes",
+                        },
+                    },
+                },
+            },
+        },
+    },
 }

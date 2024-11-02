@@ -234,7 +234,7 @@ fi
 
 # install fzf
 if ask "Install fzf?"; then
-	fzf_version="0.55.0"
+	fzf_version="0.56.0"
 	log_info "Installing fzf"
 	wget "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
 	sudo tar -xvf /tmp/fzf.tar.gz -C /usr/local/bin || log_critical "Failed to install fzf"
@@ -252,7 +252,7 @@ fi
 
 # install cmake
 if ask "Install cmake?"; then
-	cmake_version="3.30.4"
+	cmake_version="3.30.5"
 	log_info "Installing cmake"
 	wget "https://github.com/Kitware/CMake/releases/download/v${cmake_version}/cmake-${cmake_version}-linux-x86_64.sh" -O /tmp/cmake.sh
 	sudo sh /tmp/cmake.sh --prefix=/usr/local/ --exclude-subdir --skip-licenses
@@ -268,6 +268,12 @@ if ask "Install nvim?"; then
 	make install
 	rm -rf /tmp/neovim
 	cd - || exit 1
+fi
+
+# install luarocks
+if ask "Install luarocks?"; then
+	log_info "Installing luarocks"
+	install_deps "luarocks"
 fi
 
 # install spotify client

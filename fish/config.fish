@@ -6,11 +6,14 @@ end
 set -x fish_greeting
 set -x FZF_DEFAULT_COMMAND "rg --follow --files --hidden"
 set -x PYENV_ROOT "$HOME/.pyenv"
+set -x GOROOT "$HOME/go"
+set -x GOPATH "$HOME/go/packages"
 
 # Extra components on $PATH
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$HOME/.flutter/bin"
-fish_add_path "$HOME/go/bin"
+fish_add_path "$GOROOT/bin"
+fish_add_path "$GOPATH/bin"
 fish_add_path "$(python3 -m site --user-base)/bin"
 
 if test -d "$PYENV_ROOT/bin"
@@ -29,16 +32,16 @@ alias gfr='git pull --rebase --autostash'
 
 # Functions
 function _info -d "print info about the current system"
-	echo "OS: $OSTYPE"
+	echo "OS: $(lsb_release -d | cut -f2)"
 	echo "Shell: $SHELL"
 	echo "Fish: $FISH_VERSION"
-	echo "Hostname: $HOSTNAME"
+	echo "Hostname: $(hostname)"
 	echo "User: $USER"
 	echo "Home: $HOME"
 	echo "Path: $PATH"
 	echo "Editor: $EDITOR"
 	echo "Terminal: $TERM"
-	echo "TTY: $TTY"
+	echo "TTY: $(tty)"
 	echo "CPU: $(uname -p)"
 	echo "Arch: $(uname -m)"
 	echo "Kernel: $(uname -r)"
