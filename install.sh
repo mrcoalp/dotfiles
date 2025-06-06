@@ -188,12 +188,25 @@ fi
 
 # install go
 if ask "Install go?"; then
-	go_version="1.23.2"
+	go_version="1.24.1"
 	log_info "Installing go"
 	wget "https://go.dev/dl/go${go_version}.linux-amd64.tar.gz" -O /tmp/go.tar.gz
 	sudo rm -rf "$HOME/go" || log_critical "Failed to remove go directory"
 	tar -xvf /tmp/go.tar.gz -C "$HOME" || log_critical "Failed to extract go tarball"
 	rm -rf /tmp/go.tar.gz
+fi
+
+# install zig
+if ask "Install zig?"; then
+	zig_version="0.14.0"
+	zig_folder="zig-linux-x86_64-${zig_version}"
+	log_info "Installing zig"
+	wget "https://ziglang.org/download/${zig_version}/${zig_folder}.tar.xz" -O /tmp/zig.tar.xz
+	mkdir -p /tmp/zig # temporary folder
+	tar -xvf /tmp/zig.tar.xz -C /tmp/zig
+	rm -rf "$HOME/.zig"
+	mv /tmp/zig/"$zig_folder" "$HOME/.zig"
+	rm -rf /tmp/zig /tmp/zig.tar.xz
 fi
 
 # install lsd
@@ -234,7 +247,7 @@ fi
 
 # install fzf
 if ask "Install fzf?"; then
-	fzf_version="0.56.0"
+	fzf_version="0.60.3"
 	log_info "Installing fzf"
 	wget "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
 	sudo tar -xvf /tmp/fzf.tar.gz -C /usr/local/bin || log_critical "Failed to install fzf"
@@ -252,7 +265,7 @@ fi
 
 # install cmake
 if ask "Install cmake?"; then
-	cmake_version="3.30.5"
+	cmake_version="4.0.0"
 	log_info "Installing cmake"
 	wget "https://github.com/Kitware/CMake/releases/download/v${cmake_version}/cmake-${cmake_version}-linux-x86_64.sh" -O /tmp/cmake.sh
 	sudo sh /tmp/cmake.sh --prefix=/usr/local/ --exclude-subdir --skip-licenses

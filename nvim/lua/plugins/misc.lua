@@ -64,5 +64,6 @@ return {
                 },
             },
         },
+        config = true,
     },
 }

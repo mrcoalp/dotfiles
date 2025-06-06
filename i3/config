@@ -48,10 +48,12 @@ exec --no-startup-id bash "$folder/setup-touchpad.sh"
 exec --no-startup-id bash "$folder/setup-auto-layout.sh"
 
 # Run picom
-exec --no-startup-id picom --backend glx --vsync -b
+exec --no-startup-id picom --experimental-backends --backend glx --vsync --unredir-if-possible -b
 
 # Window rules
 for_window [class="Arandr"] floating enable
+for_window [class="Qemu-system-x86_64"] floating enable
+for_window [class="qemu-system-x86_64"] floating enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -81,8 +83,11 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start rofi
+# start rofi app launcher
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
+
+# start rofi window switcher
+bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons
 
 # capture screen selection
 bindsym $mod+p exec --no-startup-id flameshot gui
@@ -243,4 +248,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 	status_command i3status -c "$folder/status-config" | python3 "$folder/status-wrapper.py"
+
+	colors {
+		background #11111b
+	}
 }

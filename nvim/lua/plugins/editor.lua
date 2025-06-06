@@ -1,42 +1,5 @@
 return {
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        version = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
-        cmd = "Neotree",
-        keys = {
-            { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Toggle Neotree" },
-        },
-        deactivate = function()
-            vim.cmd([[Neotree close]])
-        end,
-        init = function()
-            vim.g.neo_tree_remove_legacy_commands = 1
-        end,
-        opts = {
-            filesystem = {
-                follow_current_file = {
-                    enabled = true,
-                },
-                filtered_items = {
-                    hide_dotfiles = false,
-                    hide_gitignored = false,
-                    hide_hidden = false,
-                },
-            },
-            window = {
-                mappings = {
-                    ["<space>"] = "none",
-                },
-            },
-        },
-    },
-
-    {
         "akinsho/toggleterm.nvim",
         version = "*",
         opts = {
@@ -91,62 +54,6 @@ return {
             })
             require("mini.indentscope").setup(opts)
         end,
-    },
-
-    {
-        "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "契" },
-                topdelete = { text = "契" },
-                changedelete = { text = "▎" },
-                untracked = { text = "▎" },
-            },
-            current_line_blame = true,
-        },
-    },
-
-    {
-        "kdheepak/lazygit.nvim",
-        lazy = true,
-        cmd = {
-            "LazyGit",
-            "LazyGitConfig",
-            "LazyGitCurrentFile",
-            "LazyGitFilter",
-            "LazyGitFilterCurrentFile",
-        },
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        -- setting the keybinding for LazyGit with 'keys' is recommended in
-        -- order to load the plugin when the command is run for the first time
-        keys = {
-            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-        },
-    },
-
-    {
-        "FabijanZulj/blame.nvim",
-        lazy = false,
-        config = true,
-    },
-
-    {
-        "windwp/nvim-spectre",
-        keys = {
-            {
-                "<leader>sr",
-                function()
-                    require("spectre").open()
-                end,
-                desc = "[S]earch and [R]eplace",
-            },
-        },
     },
 
     {
@@ -309,12 +216,12 @@ return {
                 desc = "Diagnostics (Trouble)",
             },
             {
-                "<leader>cs",
+                "<leader>xs",
                 "<cmd>Trouble symbols toggle focus=false<cr>",
                 desc = "Symbols (Trouble)",
             },
             {
-                "<leader>cl",
+                "<leader>xl",
                 "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
                 desc = "LSP Definitions / references / ... (Trouble)",
             },
@@ -335,7 +242,7 @@ return {
         "folke/todo-comments.nvim",
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        config = true,
+        opts = {},
         keys = {
             {
                 "]t",

@@ -5,6 +5,7 @@ import re
 import subprocess
 import sys
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import dbus
 
@@ -47,7 +48,7 @@ def get_spotify_metadata():
             "org.mpris.MediaPlayer2.Player",
             "Metadata"
         )
-    except dbus.exceptions.DBusException:
+    except:
         return None
 
 
@@ -233,10 +234,26 @@ if __name__ == "__main__":
 
         # TIME
 
-        now = datetime.now().strftime("%a %d %b %H:%M")
+        now = datetime.now().astimezone()
+        now_pt = datetime.now(ZoneInfo("Europe/Lisbon"))
+
+        if now != now_pt:
+            timeinfo_pt = now_pt.strftime("%a %d %b %H:%M")
+
+            j.append({
+                "full_text": " {} <i>{}</i> ".format(
+                    timeinfo_pt, now_pt.tzname()
+                ),
+                "name": "time-pt",
+                "markup": "pango",
+            })
+
+        timeinfo = now.strftime("%a %d %b %H:%M")
 
         j.append({
-            "full_text": " {} ".format(now),
+            "full_text": " {} <i>{}</i> ".format(
+                timeinfo, now.tzname()
+            ),
             "name": "time",
             "markup": "pango",
         })

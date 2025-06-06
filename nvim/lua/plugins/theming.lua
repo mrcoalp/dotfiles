@@ -20,7 +20,6 @@ return {
                     enabled = true,
                     colored_indent_levels = false,
                 },
-                neotree = true,
                 noice = true,
                 telescope = true,
                 notify = true,
@@ -74,5 +73,9 @@ return {
     {
         "folke/tokyonight.nvim",
         opts = {},
+    },
+
+    {
+        "ishan9299/nvim-solarized-lua",
     },
 }

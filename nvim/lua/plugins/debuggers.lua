@@ -122,7 +122,7 @@ return {
             end
 
             -- Setup virtual text
-            require("nvim-dap-virtual-text").setup({})
+            require("nvim-dap-virtual-text").setup()
 
             -- Add telescope extension
             require("telescope").load_extension("dap")
@@ -149,9 +149,6 @@ return {
                 type = "executable",
                 command = "debugpy-adapter",
             }
-
-            -- Load possible vscode configurations defined in .vscode/launch.json
-            require("dap.ext.vscode").load_launchjs()
 
             local dapui = require("dapui")
 

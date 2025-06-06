@@ -7,6 +7,7 @@ local on_attach = function(client, bufnr)
         end
         vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
     end
+
     local nmap = function(...)
         return map("n", ...)
     end
@@ -14,23 +15,24 @@ local on_attach = function(client, bufnr)
     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-    nmap("gd", "<cmd>Telescope lsp_definitions<cr>", "[G]oto [D]efinition")
-    nmap("gr", "<cmd>Telescope lsp_references<cr>", "[G]oto [R]eferences")
-    nmap("gI", "<cmd>Telescope lsp_implementations<cr>", "[G]oto [I]mplementation")
-    nmap("gt", "<cmd>Telescope lsp_type_definitions<cr>", "[G]oto [T]ype Definition")
-    nmap("<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", "[D]ocument [S]ymbols")
-    nmap("<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "[W]orkspace [S]ymbols")
+    local tele = require("telescope.builtin")
+    nmap("gd", tele.lsp_definitions, "[G]oto [D]efinition")
+    nmap("gr", tele.lsp_references, "[G]oto [R]eferences")
+    nmap("gI", tele.lsp_implementations, "[G]oto [I]mplementation")
+    nmap("gt", tele.lsp_type_definitions, "[G]oto [T]ype Definition")
+    nmap("<leader>ds", tele.lsp_document_symbols, "[D]ocument [S]ymbols")
+    nmap("<leader>ws", tele.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
     -- See `:help K` for why this keymap
     nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-    -- nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
     -- Lesser used LSP functionality
     nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
     nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
     nmap("<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        local folders = vim.lsp.buf.list_workspace_folders()
+        print(vim.inspect(folders))
     end, "[W]orkspace [L]ist Folders")
 end
 
@@ -59,7 +61,7 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp",
+            "saghen/blink.cmp",
         },
         opts = {
             diagnostics = {
@@ -91,44 +93,48 @@ return {
             },
         },
         config = function(_, opts)
-            for name, icon in pairs(require("user.icons").diagnostics) do
+            vim.diagnostic.config(opts.diagnostics)
+
+            local icons = require("user.icons")
+
+            for name, icon in pairs(icons.diagnostics) do
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
-            vim.diagnostic.config(opts.diagnostics)
 
-            -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+            local blink = require("blink.cmp")
 
-            capabilities.offsetEncoding = {
-                "utf-16",
-            }
-
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-            }
-
-            -- Setup mason so it can manage external tooling
-            require("mason").setup()
+            local capabilities = blink.get_lsp_capabilities({
+                offsetEncoding = {
+                    "utf-16",
+                },
+                textDocument = {
+                    foldingRange = {
+                        dynamicRegistration = false,
+                        lineFoldingOnly = true,
+                    },
+                },
+                semanticTokensProvider = nil,
+            })
 
             -- Ensure the servers above are installed
-            local mason_lspconfig = require("mason-lspconfig")
+            local mlsp = require("mason-lspconfig")
+            local install = vim.tbl_keys(opts.servers)
 
-            mason_lspconfig.setup({
-                ensure_installed = vim.tbl_keys(opts.servers),
+            mlsp.setup({
+                ensure_installed = install,
+                automatic_enable = true,
             })
 
-            mason_lspconfig.setup_handlers({
-                function(server_name)
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                        settings = opts.servers[server_name],
-                    })
-                end,
-            })
+            local installed = mlsp.get_installed_servers()
+
+            for _, server in ipairs(installed) do
+                vim.lsp.config(server, {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = opts.servers[server],
+                })
+            end
         end,
     },
 
@@ -177,11 +183,14 @@ return {
         },
         config = function(_, opts)
             require("mason").setup(opts)
-            local mr = require("mason-registry")
+
+            local registry = require("mason-registry")
+
             for _, tool in ipairs(opts.ensure_installed) do
-                local p = mr.get_package(tool)
-                if not p:is_installed() then
-                    p:install()
+                local pkg = registry.get_package(tool)
+
+                if not pkg:is_installed() then
+                    pkg:install()
                 end
             end
         end,

@@ -8,12 +8,16 @@ set -x FZF_DEFAULT_COMMAND "rg --follow --files --hidden"
 set -x PYENV_ROOT "$HOME/.pyenv"
 set -x GOROOT "$HOME/go"
 set -x GOPATH "$HOME/go/packages"
+set -x BUN_INSTALL "$HOME/.bun"
+set -x ZIG_INSTALL "$HOME/.zig"
 
 # Extra components on $PATH
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$HOME/.flutter/bin"
 fish_add_path "$GOROOT/bin"
 fish_add_path "$GOPATH/bin"
+fish_add_path "$BUN_INSTALL/bin"
+fish_add_path "$ZIG_INSTALL"
 fish_add_path "$(python3 -m site --user-base)/bin"
 
 if test -d "$PYENV_ROOT/bin"
@@ -29,6 +33,7 @@ alias lla='ls -la'
 alias lt='ls --tree'
 
 alias gfr='git pull --rebase --autostash'
+alias gco='git checkout'
 
 # Functions
 function _info -d "print info about the current system"
