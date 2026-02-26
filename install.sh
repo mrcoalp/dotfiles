@@ -107,13 +107,18 @@ function install_fonts() {
 	done
 }
 
+sudo -v || {
+	log_critical "This script requires sudo privileges"
+	exit 1
+}
+
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 # create config folder if it doesn't exist
 mkdir -p "$HOME/.config"
 
 # linked config files
-create_links "fish lazygit nvim tmux" "$HOME/.config"
+create_links "fish lazygit nvim tmux sway" "$HOME/.config"
 
 # add ppas
 install_ppas "fish-shell/release-3"
@@ -188,7 +193,7 @@ fi
 
 # install go
 if ask "Install go?"; then
-	go_version="1.24.1"
+	go_version="1.25.1"
 	log_info "Installing go"
 	wget "https://go.dev/dl/go${go_version}.linux-amd64.tar.gz" -O /tmp/go.tar.gz
 	sudo rm -rf "$HOME/go" || log_critical "Failed to remove go directory"
@@ -198,8 +203,8 @@ fi
 
 # install zig
 if ask "Install zig?"; then
-	zig_version="0.14.0"
-	zig_folder="zig-linux-x86_64-${zig_version}"
+	zig_version="0.15.1"
+	zig_folder="zig-x86_64-linux-${zig_version}"
 	log_info "Installing zig"
 	wget "https://ziglang.org/download/${zig_version}/${zig_folder}.tar.xz" -O /tmp/zig.tar.xz
 	mkdir -p /tmp/zig # temporary folder
@@ -275,7 +280,7 @@ fi
 # install neovim
 if ask "Install nvim?"; then
 	log_info "Installing neovim"
-	git clone --recursive --depth 1 -b stable https://github.com/neovim/neovim.git /tmp/neovim
+	git clone --recursive --depth 1 -b nightly https://github.com/neovim/neovim.git /tmp/neovim
 	cd /tmp/neovim || exit 1
 	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local" -j"$(nproc)"
 	make install

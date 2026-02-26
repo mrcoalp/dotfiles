@@ -11,7 +11,7 @@ return {
             providers = {
                 copilot_claude = {
                     __inherited_from = "copilot",
-                    model = "claude-3.7-sonnet",
+                    model = "claude-sonnet-4.5",
                 },
                 copilot_claude_thought = {
                     __inherited_from = "copilot",

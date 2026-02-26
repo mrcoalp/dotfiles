@@ -10,6 +10,7 @@ set -x GOROOT "$HOME/go"
 set -x GOPATH "$HOME/go/packages"
 set -x BUN_INSTALL "$HOME/.bun"
 set -x ZIG_INSTALL "$HOME/.zig"
+set -x DOCKER_HOST "unix:///run/user/1000/docker.sock"
 
 # Extra components on $PATH
 fish_add_path "$HOME/.cargo/bin"

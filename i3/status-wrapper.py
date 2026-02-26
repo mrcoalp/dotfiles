@@ -237,7 +237,7 @@ if __name__ == "__main__":
         now = datetime.now().astimezone()
         now_pt = datetime.now(ZoneInfo("Europe/Lisbon"))
 
-        if now != now_pt:
+        if now.tzname() != now_pt.tzname():
             timeinfo_pt = now_pt.strftime("%a %d %b %H:%M")
 
             j.append({
@@ -265,6 +265,14 @@ if __name__ == "__main__":
         j.append({
             "full_text": " {} ".format(keyboard_layout),
             "name": "keyboard",
+        })
+
+        # SILLY ME
+
+        j.append({
+            "full_text": " I use <i>Ubuntu</i>, <b>BTW</b> ",
+            "name": "silly_me",
+            "markup": "pango",
         })
 
         # and echo back new encoded json
