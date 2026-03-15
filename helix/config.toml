@@ -1,0 +1,30 @@
+theme = "tokyonight_storm"
+
+[editor]
+cursorline = true
+line-number = "relative"
+true-color = true
+mouse = true
+color-modes = true
+auto-format = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.lsp]
+display-messages = true
+
+[editor.indent-guides]
+render = true
+character = "╎"
+skip-levels = 1
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+
+[editor.whitespace.characters]
+space = "·"
+tab = "→"

@@ -118,7 +118,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 mkdir -p "$HOME/.config"
 
 # linked config files
-create_links "fish lazygit nvim tmux sway" "$HOME/.config"
+create_links "fish lazygit nvim tmux sway helix" "$HOME/.config"
 
 # add ppas
 install_ppas "fish-shell/release-3"
