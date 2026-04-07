@@ -70,6 +70,8 @@ require("fzf-lua").setup({
 	},
 })
 
+require("fzf-lua").register_ui_select()
+
 -- oil -------------------------------------------------------------------------
 
 vim.pack.add({
@@ -87,7 +89,10 @@ vim.pack.add({
 -- blink-cmp -------------------------------------------------------------------
 
 vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+	{
+		src = "https://github.com/saghen/blink.cmp",
+		version = vim.version.range("^1"),
+	},
 })
 
 require("blink.cmp").setup({
@@ -131,7 +136,11 @@ vim.pack.add({
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 })
 
-require("fidget").setup()
+require("fidget").setup({
+	notification = {
+		override_vim_notify = true,
+	},
+})
 
 -- dap -------------------------------------------------------------------------
 
@@ -191,6 +200,7 @@ vim.pack.add({
 
 require("conform").setup({
 	formatters_by_ft = {
+		cmake = { "cmake_format" },
 		css = { "prettierd" },
 		html = { "prettierd" },
 		json = { "prettierd" },
@@ -204,4 +214,14 @@ require("conform").setup({
 		typescriptreact = { "prettierd" },
 		yaml = { "prettierd" },
 	},
+})
+
+-- gitsigns --------------------------------------------------------------------
+
+vim.pack.add({
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+})
+
+require("gitsigns").setup({
+	current_line_blame = true,
 })

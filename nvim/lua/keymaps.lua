@@ -7,6 +7,7 @@ vim.keymap.set("n", "<leader>ps", "<cmd>lua vim.pack.update()<cr>")
 vim.keymap.set("n", "j", function()
 	return tonumber(vim.api.nvim_get_vvar("count")) > 0 and "j" or "gj"
 end, { expr = true, silent = true })
+
 -- Move up, but use 'gk' if no count is given
 vim.keymap.set("n", "k", function()
 	return tonumber(vim.api.nvim_get_vvar("count")) > 0 and "k" or "gk"
@@ -21,6 +22,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>fo", ":lua vim.lsp.buf.format()<cr>", { silent = true })
 vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<cr>", { silent = true })
 vim.keymap.set("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<cr>", { silent = true })
+vim.keymap.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<cr>", { silent = true })
 
 -- Paste without overwriting the default register
 vim.keymap.set("v", "<leader>p", '"_dP')
@@ -62,8 +64,11 @@ vim.keymap.set("n", "-", "<cmd>Oil<cr>")
 vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>")
 
 -- dap
-vim.keymap.set("n", "<leader>b", "<cmd>DapToggleBreakpoint<cr>")
+vim.keymap.set("n", "<F9>", "<cmd>DapToggleBreakpoint<cr>")
 vim.keymap.set("n", "<F5>", "<cmd>DapContinue<cr>")
+vim.keymap.set("n", "<F10>", "<cmd>DapStepOver<cr>")
+vim.keymap.set("n", "<F11>", "<cmd>DapStepInto<cr>")
+vim.keymap.set("n", "<S-F11>", "<cmd>DapStepOut<cr>")
 
 -- conform
 vim.keymap.set("n", "<leader>f", function()

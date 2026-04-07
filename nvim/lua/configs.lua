@@ -1,4 +1,3 @@
-vim.opt.guicursor = "i:block" -- Use block cursor in insert mode
 vim.opt.signcolumn = "yes:1" -- Always show sign column
 vim.opt.termguicolors = true -- Enable true colors
 vim.opt.ignorecase = true -- Ignore case in search
@@ -21,9 +20,9 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo fil
 vim.opt.undofile = true -- Enable persistent undo
 vim.opt.completeopt = { "menuone", "popup", "noinsert" } -- Options for completion menu
 vim.opt.winborder = "rounded" -- Use rounded borders for windows
-vim.opt.hlsearch = false -- Disable highlighting of search results
 vim.opt.spell = true -- Enable spell checking
 vim.opt.spelllang = { "en" } -- English as spelling language
+vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 
 vim.cmd.filetype("plugin indent on") -- Enable filetype detection, plugins, and indentation
 vim.cmd.colorscheme("tokyonight-storm") -- Set tokyonight as theme

@@ -280,7 +280,7 @@ fi
 # install neovim
 if ask "Install nvim?"; then
 	log_info "Installing neovim"
-	git clone --recursive --depth 1 -b nightly https://github.com/neovim/neovim.git /tmp/neovim
+	git clone --recursive --depth 1 -b stable https://github.com/neovim/neovim.git /tmp/neovim
 	cd /tmp/neovim || exit 1
 	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local" -j"$(nproc)"
 	make install
