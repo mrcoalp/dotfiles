@@ -6,7 +6,7 @@ vim.lsp.enable({
 	"lua_ls",
 	"pyright",
 	"ts_ls",
-	"yamls",
+	"yamlls",
 })
 
 vim.diagnostic.config({
