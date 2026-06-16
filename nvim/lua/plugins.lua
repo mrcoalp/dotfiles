@@ -225,3 +225,11 @@ vim.pack.add({
 require("gitsigns").setup({
 	current_line_blame = true,
 })
+
+-- grug-far --------------------------------------------------------------------
+
+vim.pack.add({
+	{ src = "https://github.com/MagicDuck/grug-far.nvim" },
+})
+
+require("grug-far").setup()

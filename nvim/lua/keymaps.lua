@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<space>", "<Nop>")
 vim.keymap.set("n", "<leader>ps", "<cmd>lua vim.pack.update()<cr>")
@@ -74,4 +75,19 @@ vim.keymap.set("n", "<S-F11>", "<cmd>DapStepOut<cr>")
 vim.keymap.set("n", "<leader>f", function()
 	local conform = require("conform")
 	conform.format({ async = true, lsp_fallback = true })
+end, { silent = true })
+
+-- grug-far
+
+vim.keymap.set("n", "<leader>sr", function()
+	local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+
+	local opts = {
+		transient = true,
+		prefills = {
+			filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+		},
+	}
+
+	require("grug-far").open(opts)
 end, { silent = true })
